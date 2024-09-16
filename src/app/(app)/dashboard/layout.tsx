@@ -1,4 +1,5 @@
 import Icon from "@/components/Icon";
+import ThemeSwitcher from "@/components/theme-switcher";
 import Link from "next/link";
 import React, { FC, Fragment } from "react";
 
@@ -73,6 +74,7 @@ const AppLayout: FC<Props> = ({ children }) => {
           </nav>
         </div>
         <div className="mb-2">
+          <ThemeSwitcher />
           <div className="flex justify-between items-center">
             <div className="flex items-center justify-center bg-gray-900 size-10 mr-2 rounded-full font-black text-md p-5">
               A.M
