@@ -96,7 +96,7 @@ const AppMenu: FC<Props> = ({}) => {
                           <li key={item.name}>
                             <Link
                               href={item.href}
-                              className="flex items-center px-4 py-2 mr-2 text-neutral-500 dark:text-gray-100 dark:hover:bg-gray-100 hover:bg-gray-500 hover:text-gray-100 dark:hover:text-gray-900 rounded duration-200"
+                              className="flex items-center px-4 py-2 mr-2 text-neutral-500 dark:text-gray-100 dark:hover:bg-neutral-800 hover:bg-gray-500 hover:text-gray-100 dark:hover:text-white rounded duration-300"
                             >
                               <Icon
                                 iconName={item.icon}
