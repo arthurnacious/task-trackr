@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import PageMenu from "@/components/pages/home/page-menu";
+import PageMenu from "@/components/pages/page-menu";
 
 export const metadata: Metadata = {
   title: "Create Next App",
