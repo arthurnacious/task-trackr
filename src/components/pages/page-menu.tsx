@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Logo from "../logo";
+import Link from "next/link";
 
 const menuItems = [
   { name: "Home", href: "#" },
@@ -40,11 +42,13 @@ const PageMenu = () => {
   };
 
   return (
-    <div className="fixed top-0 inset-0">
+    <div className="fixed top-0 z-50 w-full">
       <nav className="bg-teal-600 text-white">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
-            <div className="text-2xl font-bold">Task-Trackr</div>
+            <Link href="/">
+              <Logo />
+            </Link>
 
             {/* Desktop Menu */}
             <motion.div
