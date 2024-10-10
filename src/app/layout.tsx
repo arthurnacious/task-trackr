@@ -1,8 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
-import PageMenu from "@/components/pages/page-menu";
-import PageFooter from "@/components/pages/page-footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,9 +21,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <PageMenu />
           {children}
-          <PageFooter />
         </ThemeProvider>
       </body>
     </html>

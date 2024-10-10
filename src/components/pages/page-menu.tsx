@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import Logo from "../logo";
+import Logo from "@/components/logo";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const menuItems = [
   { name: "Home", href: "#" },
@@ -51,56 +52,65 @@ const PageMenu = () => {
             </Link>
 
             {/* Desktop Menu */}
-            <motion.div
-              className="hidden md:flex space-x-6"
-              initial="closed"
-              animate="open"
-              variants={{
-                open: {
-                  transition: { staggerChildren: 0.1, delayChildren: 0.2 },
-                },
-                closed: {},
-              }}
-            >
-              {menuItems.map((item) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  className="hover:text-teal-200 transition-colors"
-                  variants={menuItemVariants}
-                >
-                  {item.name}
-                </motion.a>
-              ))}
-            </motion.div>
+            <div className="flex gap-2 items-center">
+              <motion.div
+                className="hidden md:flex space-x-6 order-last"
+                initial="closed"
+                animate="open"
+                variants={{
+                  open: {
+                    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+                  },
+                  closed: {},
+                }}
+              >
+                {menuItems.map((item) => (
+                  <motion.a
+                    key={item.name}
+                    href={item.href}
+                    className="hover:text-teal-200 transition-colors"
+                    variants={menuItemVariants}
+                  >
+                    {item.name}
+                  </motion.a>
+                ))}
+              </motion.div>
 
-            {/* Mobile Menu Toggle */}
-            <div className="md:hidden">
-              <button onClick={toggleMenu} className="focus:outline-none">
-                <AnimatePresence mode="wait">
-                  {isOpen ? (
-                    <motion.div
-                      key="close"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <X size={24} />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="menu"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Menu size={24} />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </button>
+              {/* Mobile Menu Toggle */}
+              <div className="md:hidden order-last">
+                <button onClick={toggleMenu} className="focus:outline-none">
+                  <AnimatePresence mode="wait">
+                    {isOpen ? (
+                      <motion.div
+                        key="close"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <X size={24} />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="menu"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <Menu size={24} />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </button>
+              </div>
+              <Button
+                variant="secondary"
+                className="order-1 md:order-last"
+                asChild
+              >
+                <Link href="/login">Login</Link>
+              </Button>
             </div>
           </div>
         </div>
