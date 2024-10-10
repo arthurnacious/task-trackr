@@ -33,7 +33,7 @@ Task-Trackr is a modern, efficient task management application designed to strea
 1. Clone the repository:
 
    ```
-   git clone https://github.com/yourusername/task-trackr.git
+   git clone https://github.com/arthurnacious/task-trackr.git
    ```
 
 2. Navigate to the project directory:
@@ -64,9 +64,9 @@ Task-Trackr is a modern, efficient task management application designed to strea
 
 [Add brief instructions or GIFs demonstrating key features of Task-Trackr]
 
-## Contributing
+<!-- ## Contributing
 
-We welcome contributions to Task-Trackr! Please read our [Contributing Guide](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+We welcome contributions to Task-Trackr! Please read our [Contributing Guide](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests. -->
 
 ## License
 
