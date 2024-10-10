@@ -47,13 +47,13 @@ const AppLayout: FC<Props> = ({ children }) => {
             {navItems.map((item, index) => (
               <Fragment key={item.title}>
                 <div className="mt-4">
-                  <div className="text-sm text-gray-600">{item.title}</div>
+                  <div className="text-sm text-gray-400">{item.title}</div>
                   <ul className="mt-2 ml-2 space-y-2">
                     {item.items.map((item) => (
                       <li key={item.name}>
                         <Link
                           href={item.href}
-                          className="flex items-center px-4 py-2 mr-2 text-neutral-900 dark:text-gray-400 dark:hover:bg-gray-100 hover:bg-gray-500 hover:text-gray-100 dark:hover:text-gray-900 rounded duration-200"
+                          className="flex items-center px-4 py-2 mr-2 text-neutral-500 dark:text-gray-100 dark:hover:bg-gray-100 hover:bg-gray-500 hover:text-gray-100 dark:hover:text-gray-900 rounded duration-200"
                         >
                           <Icon
                             iconName={item.icon}
@@ -80,7 +80,7 @@ const AppLayout: FC<Props> = ({ children }) => {
               A.M
             </div>
             <div className="text-nowrap">
-              <div className="text-sm dark:text-gray-200 text-neutral-900">
+              <div className="text-sm dark:text-gray-200 text-neutral-500">
                 Arthurncious Monethi
               </div>
               <div className="text-xs text-gray-500">
@@ -90,7 +90,7 @@ const AppLayout: FC<Props> = ({ children }) => {
           </div>
         </div>
       </div>
-      <div className="px-4 py-5 bg-white flex-1 md:rounded-xl text-gray-800 ">
+      <div className="px-4 py-5 bg-white dark:bg-neutral-800 flex-1 md:rounded-xl text-gray-800 dark:text-gray-100">
         {children}
       </div>
     </div>
