@@ -4,9 +4,11 @@ import * as React from "react";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
 
-import { Button } from "@/components/ui/button";
+interface Props {
+  JustIcons?: boolean;
+}
 
-const ThemeSwitcher = () => {
+const ThemeSwitcher = ({ JustIcons }: Props) => {
   const { setTheme, theme } = useTheme();
 
   const doTheChange = () => {
@@ -23,10 +25,12 @@ const ThemeSwitcher = () => {
         <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
         <span className="sr-only">Toggle theme</span>
       </div>
-      <div className="ml-2 text-neutral-600 dark:text-white">
-        <span className="dark:hidden">Light</span>
-        <span className="hidden dark:inline">Dark</span> Mode
-      </div>
+      {!JustIcons && (
+        <div className="ml-2 text-neutral-600 dark:text-white">
+          <span className="dark:hidden">Light</span>
+          <span className="hidden dark:inline">Dark</span> Mode
+        </div>
+      )}
     </div>
   );
 };

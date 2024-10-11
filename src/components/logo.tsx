@@ -8,7 +8,7 @@ const Logo: FC<Props> = ({ withSlogan = false }) => {
   return (
     <div className="flex flex-col items-center text-center">
       {/* Logo Name */}
-      <h1 className="text-white font-bold">
+      <h1 className="dark:text-white text-neutral-900 font-bold">
         <span className="font-black-ops text-4xl italic">Task Track</span>
         <span className="text-teal-300 font-dots text-5xl">r</span>
       </h1>

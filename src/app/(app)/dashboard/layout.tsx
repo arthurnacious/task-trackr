@@ -1,5 +1,4 @@
 import AppMenu from "@/components/(app)/app-menu";
-import ThemeSwitcher from "@/components/theme-switcher";
 import React, { FC } from "react";
 
 interface Props {
