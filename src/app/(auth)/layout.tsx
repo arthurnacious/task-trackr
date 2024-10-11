@@ -2,7 +2,6 @@
 import React, { FC } from "react";
 import { motion } from "framer-motion";
 import Logo from "@/components/logo";
-import ThemeSwitcher from "@/components/theme-switcher";
 
 interface Props {
   children: React.ReactNode;
