@@ -20,6 +20,9 @@ import PageContainer from "@/components/(auth)/page-container";
 import Link from "next/link";
 
 const formSchema = z.object({
+  name: z.string().min(6, {
+    message: "Name must be at least 6 characters.",
+  }),
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
@@ -28,7 +31,7 @@ const formSchema = z.object({
   }),
 });
 
-const SignIn = () => {
+const SignUp = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,12 +48,27 @@ const SignIn = () => {
     <PageContainer>
       <div className="text-center">
         <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-          sign in to your account
+          Sign up for an account
         </h3>
       </div>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-gray-700 dark:text-gray-300">
+                  Name
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder="John Doe" {...field} className="w-full" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="email"
@@ -94,7 +112,7 @@ const SignIn = () => {
             type="submit"
             className="w-full bg-teal-600 hover:bg-teal-700 text-white"
           >
-            Sign In
+            Sign Up
           </Button>
         </form>
       </Form>
@@ -141,22 +159,16 @@ const SignIn = () => {
         </Button>
       </div>
 
-      <div className="flex items-center justify-between text-sm">
+      <div className="text-center text-sm">
         <Link
-          href="/f-password"
+          href="/sign-in"
           className="font-medium text-teal-600 hover:text-teal-500 dark:text-teal-400 dark:hover:text-teal-300"
         >
-          Forgot your password?
-        </Link>
-        <Link
-          href="/sign-up"
-          className="font-medium text-teal-600 hover:text-teal-500 dark:text-teal-400 dark:hover:text-teal-300"
-        >
-          Create an account?
+          Already have an account?
         </Link>
       </div>
     </PageContainer>
   );
 };
 
-export default SignIn;
+export default SignUp;
