@@ -7,7 +7,7 @@ const HeroSection = () => {
       <div className="container mx-auto px-6 py-12">
         <div className="flex flex-col lg:flex-row items-center">
           <div className="lg:w-1/2 mb-12 lg:mb-0">
-            <h1 className="text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
+            <h1 className="text-5xl lg:text-6xl font-extrabold mb-6 mt-5 md:mt-0 leading-tight">
               Supercharge Your Productivity with Task-Trackr
             </h1>
             <p className="text-xl mb-8 text-teal-100">

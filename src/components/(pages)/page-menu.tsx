@@ -54,7 +54,7 @@ const PageMenu = () => {
             {/* Desktop Menu */}
             <div className="flex gap-2 items-center">
               <motion.div
-                className="hidden md:flex space-x-6 order-last"
+                className="hidden md:flex space-x-6 mr-10 order-last"
                 initial="closed"
                 animate="open"
                 variants={{
@@ -104,13 +104,14 @@ const PageMenu = () => {
                   </AnimatePresence>
                 </button>
               </div>
-              <Button
-                variant="secondary"
-                className="order-1 md:order-last"
-                asChild
-              >
-                <Link href="/login">Login</Link>
-              </Button>
+              <div className="flex gap-x-2 order-1 md:order-last">
+                <Button variant="default" asChild>
+                  <Link href="/sign-in">Sign In</Link>
+                </Button>
+                <Button variant="secondary" asChild>
+                  <Link href="/sign-up">Sign up</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
