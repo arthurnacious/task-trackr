@@ -108,7 +108,7 @@ const PageMenu = () => {
                 <Button variant="default" asChild>
                   <Link href="/sign-in">Sign In</Link>
                 </Button>
-                <Button variant="secondary" asChild>
+                <Button variant="secondary" asChild className="hidden md:block">
                   <Link href="/sign-up">Sign up</Link>
                 </Button>
               </div>
