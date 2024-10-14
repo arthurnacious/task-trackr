@@ -9,7 +9,7 @@ interface Props {
 
 const AuthLayout: FC<Props> = ({ children }) => {
   return (
-    <div className="min-h-screen flex items-center justify-center  ">
+    <div className="min-h-screen flex items-center justify-center">
       <div className="absolute inset-0 h-full w-full bg-gradient-to-br dark:from-neutral-900 dark:to-neutral-700 from-neutral-100 to-neutral-300" />
       <motion.div
         initial={{ opacity: 0, y: -20 }}
