@@ -105,12 +105,24 @@ const PageMenu = () => {
                 </button>
               </div>
               <div className="flex gap-x-2 order-1 md:order-last">
-                <Button variant="default" asChild>
-                  <Link href="/sign-in">Sign In</Link>
-                </Button>
-                <Button variant="secondary" asChild className="hidden md:block">
-                  <Link href="/sign-up">Sign up</Link>
-                </Button>
+                {false ? (
+                  <>
+                    <Button variant="default" asChild>
+                      <Link href="/sign-in">Sign In</Link>
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      asChild
+                      className="hidden md:block"
+                    >
+                      <Link href="/sign-up">Dahboard</Link>
+                    </Button>
+                  </>
+                ) : (
+                  <Button variant="default" asChild>
+                    <Link href="/dashboard">Dashboard</Link>
+                  </Button>
+                )}
               </div>
             </div>
           </div>

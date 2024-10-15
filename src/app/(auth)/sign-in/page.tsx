@@ -13,11 +13,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import Google from "@/components/logos/google.svg";
-import Faceboook from "@/components/logos/facebook.svg";
 import PageContainer from "@/components/(auth)/page-container";
 import Link from "next/link";
+import SocialSignIn from "@/components/(auth)/social-sign-in";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -110,36 +108,7 @@ const SignIn = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <Button
-          variant="outline"
-          className="w-full flex items-center justify-center"
-          onClick={() => console.log("Google sign in")}
-        >
-          <Image
-            src={Google}
-            alt="Google"
-            width={20}
-            height={20}
-            className="mr-2"
-          />
-          Google
-        </Button>
-        <Button
-          variant="outline"
-          className="w-full flex items-center justify-center"
-          onClick={() => console.log("Facebook sign in")}
-        >
-          <Image
-            src={Faceboook}
-            alt="Faceboook"
-            width={20}
-            height={20}
-            className="mr-2 p-[.15rem]"
-          />
-          Facebook
-        </Button>
-      </div>
+      <SocialSignIn />
 
       <div className="flex items-center justify-between text-sm">
         <Link
