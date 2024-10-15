@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Logo from "@/components/logo";
@@ -18,6 +18,20 @@ const PageMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const menuVariants = {
     closed: {
@@ -43,7 +57,7 @@ const PageMenu = () => {
   };
 
   return (
-    <div className="fixed top-0 z-50 w-full">
+    <div className="fixed top-0 z-50 w-full" ref={menuRef}>
       <nav className="bg-teal-600 text-white">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
