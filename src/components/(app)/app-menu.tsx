@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, Fragment } from "react";
+import React, { FC, Fragment, useEffect, useRef } from "react";
 import Icon from "@/components/Icon";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -33,12 +33,35 @@ const AppMenu: FC<Props> = ({}) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
-      <div className="md:hidden absolute top-6 left-4 z-10">
+      <div
+        className={cn(
+          "md:hidden absolute z-10",
+          isOpen ? "top-4 right-2" : "top-4 left-4",
+          "duration-300"
+        )}
+        ref={menuRef}
+      >
         <button
           onClick={toggleMenu}
-          className="focus:outline-none bg-slate-700 p-2 rounded-lg hover:bg-slate-400 duration-300"
+          className="focus:outline-none p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-neutral-900 duration-300"
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
