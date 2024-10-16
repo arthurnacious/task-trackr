@@ -21,13 +21,13 @@ const tenats = [
 const TenantSelect: FC<Props> = ({}) => {
   return (
     <div className="mt-5 md:mt-5">
-      <Select>
+      <Select value="micheal-solutions">
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Theme" />
+          <SelectValue placeholder="Tenant" />
         </SelectTrigger>
         <SelectContent>
           {tenats.map(({ id, name, slug }) => (
-            <SelectItem value={slug} key={id}>
+            <SelectItem value={String(slug)} key={id}>
               <div className="flex justify-center items-center">
                 <div className="flex items-center justify-center bg-gray-900 size-5 mr-2 rounded-sm font-black text-md py-3 px-4">
                   {getInitials(name)}

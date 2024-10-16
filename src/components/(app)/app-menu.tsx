@@ -39,11 +39,14 @@ const AppMenu: FC<Props> = ({}) => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const menuRef = useRef<HTMLDivElement>(null);
+  const appMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      if (
+        appMenuRef.current &&
+        !appMenuRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -62,11 +65,11 @@ const AppMenu: FC<Props> = ({}) => {
           isOpen ? "top-4 right-2" : "top-4 left-4",
           "duration-300"
         )}
-        ref={menuRef}
+        ref={appMenuRef}
       >
         <button
           onClick={toggleMenu}
-          className="focus:outline-none p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-neutral-900 duration-300"
+          className="focus:outline-none p-2 rounded-lg bg-slate-100 dark:bg-neutral-900 hover:bg-slate-200 dark:hover:bg-neutral-950 duration-300 text-neutral-950 dark:text-white"
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
@@ -97,7 +100,7 @@ const AppMenu: FC<Props> = ({}) => {
         className={cn(
           "fixed md:static",
           !isOpen && "-translate-x-full",
-          "md:translate-x-0 w-56 h-full md:flex flex-col justify-between duration-300 bg-inherit px-3 md:pr-8"
+          "md:translate-x-0 w-56 h-screen md:h-full md:flex flex-col justify-between duration-300 bg-inherit px-3 md:pr-8"
         )}
       >
         <div className="h-full flex flex-col justify-between">
