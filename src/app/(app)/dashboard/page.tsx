@@ -1,12 +1,15 @@
 import PageContainer from "@/components/(app)/page-container";
-import { db } from "@/db";
-import { user } from "@/db/schema";
 import React from "react";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 
 const DahsboardPage = async () => {
-  const allUsers = await db.select().from(user);
+  const session = await auth.api.getSession({
+    headers: headers(),
+  });
+  console.log({ session });
   return (
-    <PageContainer title="Dashboard">{allUsers.length} users</PageContainer>
+    <PageContainer title="Dashboard">{JSON.stringify(session)}</PageContainer>
   );
 };
 

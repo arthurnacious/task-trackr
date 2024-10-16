@@ -1,11 +1,19 @@
 import AppMenu from "@/components/(app)/app-menu";
+import { isLoaggedIn } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import React, { FC } from "react";
 
 interface Props {
   children: React.ReactNode;
 }
 
-const AppLayout: FC<Props> = ({ children }) => {
+const AppLayout: FC<Props> = async ({ children }) => {
+  const canAccess = await isLoaggedIn();
+
+  if (!canAccess) {
+    redirect("/sign-in");
+  }
+
   return (
     <div className="flex h-screen w-screen dark:bg-neutral-950 bg-neutral-200 md:p-3">
       <AppMenu />

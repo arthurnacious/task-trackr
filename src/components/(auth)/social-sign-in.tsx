@@ -29,8 +29,8 @@ const buttons = [
 
 const SocialSignIn: FC<Props> = ({ className }) => {
   const signInWithProvider = async (provider: knownProviders) => {
-    console.log("signing in");
-    await signIn.social({ provider, callbackURL: "/" });
+    console.log("signing in with :" + provider);
+    await signIn.social({ provider, callbackURL: "/dashboard" });
   };
 
   return (

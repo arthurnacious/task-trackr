@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Loader2, Menu, X } from "lucide-react";
 import Logo from "@/components/logo";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useSession } from "@/lib/auth-client";
 
 const menuItems = [
   { name: "Home", href: "#" },
@@ -16,6 +17,7 @@ const menuItems = [
 
 const PageMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session, isPending } = useSession();
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -119,7 +121,25 @@ const PageMenu = () => {
                 </button>
               </div>
               <div className="flex gap-x-2 order-1 md:order-last">
-                {false ? (
+                {isPending ? (
+                  <Button variant="default">
+                    <Loader2 className="animate-spin text-neutral-800 mr-2" />{" "}
+                    Loading
+                  </Button>
+                ) : session?.user ? (
+                  <>
+                    <Button variant="default" asChild>
+                      <Link href="/dashboard">Dashboard</Link>
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      asChild
+                      className="hidden md:block"
+                    >
+                      <Link href="/sign-up">Sign Up</Link>
+                    </Button>
+                  </>
+                ) : (
                   <>
                     <Button variant="default" asChild>
                       <Link href="/sign-in">Sign In</Link>
@@ -129,13 +149,9 @@ const PageMenu = () => {
                       asChild
                       className="hidden md:block"
                     >
-                      <Link href="/sign-up">Dahboard</Link>
+                      <Link href="/sign-up">Sign Up</Link>
                     </Button>
                   </>
-                ) : (
-                  <Button variant="default" asChild>
-                    <Link href="/dashboard">Dashboard</Link>
-                  </Button>
                 )}
               </div>
             </div>

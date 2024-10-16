@@ -6,6 +6,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import ThemeSwitcher from "../theme-switcher";
 import { cn } from "@/lib/utils";
+import { useSession } from "@/lib/auth-client";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Props {}
 
@@ -29,8 +31,17 @@ const navItems = [
   },
 ];
 
+const getInitials = (name: string) => {
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase();
+};
+
 const AppMenu: FC<Props> = ({}) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { data: session, isPending } = useSession();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -142,19 +153,35 @@ const AppMenu: FC<Props> = ({}) => {
           </div>
           <div className="mb-2">
             <ThemeSwitcher />
-            <div className="flex justify-between items-center">
-              <div className="flex items-center justify-center bg-gray-900 size-10 mr-2 rounded-full font-black text-md p-5">
-                A.M
-              </div>
-              <div className="text-nowrap">
-                <div className="text-sm dark:text-gray-200 text-neutral-500">
-                  Arthurncious Monethi
+            {isPending ? (
+              <div className="flex justify-between items-center">
+                <div className="flex items-center justify-center bg-gray-900 size-10 mr-2 rounded-full font-black text-md p-5">
+                  <Skeleton className="h-6 w-6 rounded-full" />
                 </div>
-                <div className="text-xs text-gray-500">
-                  arthurnacious@gmail.com
+                <div className="text-nowrap">
+                  <div className="text-sm dark:text-gray-200 text-neutral-500">
+                    <Skeleton className="h-4 w-32" />
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    <Skeleton className="h-3 w-24" />
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="flex justify-between items-center">
+                <div className="flex items-center justify-center bg-gray-900 size-10 mr-2 rounded-full font-black text-md p-5">
+                  {session && getInitials(session.user.name)}
+                </div>
+                <div className="text-nowrap">
+                  <div className="text-sm dark:text-gray-200 text-neutral-500">
+                    {session?.user.name}
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {session?.user.email}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
