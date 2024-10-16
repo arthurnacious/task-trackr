@@ -1,4 +1,13 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  timestamp,
+  boolean,
+  integer,
+  varchar,
+  pgEnum,
+  index,
+} from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -40,4 +49,29 @@ export const verification = pgTable("verification", {
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
   expiresAt: timestamp("expiresAt").notNull(),
+});
+
+export const tenant = pgTable(
+  "tenant",
+  {
+    id: integer("id").primaryKey(),
+    name: varchar("name").notNull(),
+    slug: varchar("slug").notNull(),
+    createdAt: timestamp("createdAt").defaultNow(),
+    updatedAt: timestamp("updatedAt").defaultNow(),
+  },
+  (tenant) => ({
+    slugIndex: index("slug_index").on(tenant.slug), // Index the slug column
+  })
+);
+
+const roleEnum = pgEnum("varchar", ["ADMIN", "PARTICIPANT"]);
+export const tenantMember = pgTable("tenant_member", {
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id),
+  tenantId: integer("tenant_id")
+    .notNull()
+    .references(() => tenant.id), // Foreign key referencing tenant.id
+  role: roleEnum("role").default("PARTICIPANT").notNull(),
 });

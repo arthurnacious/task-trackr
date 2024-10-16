@@ -8,6 +8,8 @@ import ThemeSwitcher from "../theme-switcher";
 import { cn } from "@/lib/utils";
 import { useSession } from "@/lib/auth-client";
 import { Skeleton } from "@/components/ui/skeleton";
+import TenantSelect from "@/components/(app)/tenant-select";
+import { getInitials } from "@/lib/helpers/string";
 
 interface Props {}
 
@@ -30,14 +32,6 @@ const navItems = [
     ],
   },
 ];
-
-const getInitials = (name: string) => {
-  return name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase();
-};
 
 const AppMenu: FC<Props> = ({}) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -103,22 +97,12 @@ const AppMenu: FC<Props> = ({}) => {
         className={cn(
           "fixed md:static",
           !isOpen && "-translate-x-full",
-          "md:translate-x-0 w-52 h-full md:flex flex-col justify-between duration-300 bg-inherit px-3 md:pr-8"
+          "md:translate-x-0 w-56 h-full md:flex flex-col justify-between duration-300 bg-inherit px-3 md:pr-8"
         )}
       >
         <div className="h-full flex flex-col justify-between">
           <div className="">
-            <div className="flex h-20 rounded-xl bg-white p-4 shadow-md mt-3 md:mt-2">
-              <div className=" bg-black rounded size-12 flex justify-center items-center mr-2">
-                <span className="text-4xl font-bold">Q</span>
-              </div>
-              <div className="overflow-hidden">
-                <div className="text-black text-lg">QuickStats</div>
-                <p className="text-xs text-gray-500 text-nowrap truncate">
-                  Bloemfontein, South Africa
-                </p>
-              </div>
-            </div>
+            <TenantSelect />
             <nav>
               <div className="mt-8 gap-4 flex-col flex">
                 {navItems.map((item, index) => (
