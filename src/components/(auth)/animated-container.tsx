@@ -13,7 +13,7 @@ const AnimatedContainer: FC<Props> = ({ children }) => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="h-screen md:h-auto w-full max-w-md p-8 rounded-lg shadow-xl dark:bg-neutral-900 bg-white"
+      className="h-screen w-screen md:h-auto md:w-full max-w-md p-8 rounded-lg shadow-xl dark:bg-neutral-900 bg-white"
     >
       <div className="flex flex-col justify-center items-center">
         <Logo withSlogan />
