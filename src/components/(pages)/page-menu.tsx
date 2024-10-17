@@ -127,18 +127,9 @@ const PageMenu = () => {
                     Loading
                   </Button>
                 ) : session?.user ? (
-                  <>
-                    <Button variant="default" asChild>
-                      <Link href="/dashboard">Dashboard</Link>
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      asChild
-                      className="hidden md:block"
-                    >
-                      <Link href="/sign-up">Sign Up</Link>
-                    </Button>
-                  </>
+                  <Button variant="secondary" asChild>
+                    <Link href="/dashboard">Dashboard</Link>
+                  </Button>
                 ) : (
                   <>
                     <Button variant="default" asChild>
