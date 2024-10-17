@@ -1,5 +1,5 @@
 "use client";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { google, facebook, github } from "@/components/logos";
@@ -28,15 +28,19 @@ const buttons = [
 ];
 
 const SocialSignIn: FC<Props> = ({ className }) => {
+  const [loadingProvider, setLoadingProvider] = useState<string | null>(null); // Track loading for specific provider
+
   const signInWithProvider = async (provider: knownProviders) => {
-    console.log("signing in with :" + provider);
+    setLoadingProvider(provider);
     await signIn.social({ provider, callbackURL: "/dashboard" });
+    setLoadingProvider(null);
   };
 
   return (
     <div className={cn("grid grid-cols-2 gap-4", className)}>
       {buttons.map(({ name, icon }) => (
         <Button
+          isLoading={loadingProvider === name}
           key={name}
           variant="outline"
           className="w-full flex items-center justify-center capitalize"
