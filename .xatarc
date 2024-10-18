@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Arthurnacious-s-workspace-kh182r.eu-west-1.xata.sh/db/task-trackr",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}

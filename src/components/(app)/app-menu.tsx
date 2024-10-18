@@ -18,7 +18,7 @@ const navItems = [
     title: "Main Menu",
     items: [
       { name: "Dashboard", icon: "LayoutDashboard", href: "/dashboard" },
-      { name: "Tasks", icon: "CalendarCheck", href: "/tasks" },
+      { name: "Projects", icon: "FolderRoot", href: "/projects" },
       { name: "Schedule", icon: "AlarmClock", href: "/schedule" },
       { name: "Employees", icon: "Users", href: "/users" },
     ],
@@ -51,9 +51,9 @@ const AppMenu: FC<Props> = ({}) => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
 

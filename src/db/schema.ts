@@ -61,7 +61,7 @@ export const tenant = pgTable(
     updatedAt: timestamp("updatedAt").defaultNow(),
   },
   (tenant) => ({
-    slugIndex: index("slug_index").on(tenant.slug), // Index the slug column
+    slugIndex: index("tenant_slug_index").on(tenant.slug), // Index the slug column
   })
 );
 
@@ -74,4 +74,43 @@ export const tenantMember = pgTable("tenant_member", {
     .notNull()
     .references(() => tenant.id), // Foreign key referencing tenant.id
   role: roleEnum("role").default("PARTICIPANT").notNull(),
+});
+
+export const project = pgTable(
+  "project",
+  {
+    id: integer("id").primaryKey(),
+    tenantId: integer("tenant_id")
+      .notNull()
+      .references(() => tenant.id),
+    name: varchar("name").notNull(),
+    slug: varchar("slug").notNull(),
+    expiresAt: timestamp("expiresAt"),
+    createdAt: timestamp("createdAt").defaultNow(),
+    updatedAt: timestamp("updatedAt").defaultNow(),
+  },
+  (tenant) => ({
+    slugIndex: index("project_slug_index").on(tenant.slug), // Index the slug column
+  })
+);
+
+const taskStatusEnum = pgEnum("varchar", [
+  "BACKLOG",
+  "TODO",
+  "IN_PROGRESS",
+  "IN_REVIEW",
+  "COMPLETED",
+]);
+export const task = pgTable("task", {
+  id: integer("id").primaryKey(),
+  projectId: integer("project_id")
+    .notNull()
+    .references(() => project.id),
+  name: varchar("name").notNull(),
+  status: taskStatusEnum("status").default("IN_PROGRESS").notNull(),
+  assigneeId: text("assignee_id").references(() => user.id),
+  description: text("description"),
+  dueDate: timestamp("due_date"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });

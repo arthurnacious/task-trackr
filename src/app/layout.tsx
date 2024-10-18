@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: "Task tracker",
+  title: "Task Tracker",
   description:
     "Effortlessly manage tasks, collaborate with your team, and achieve your goals faster than ever before.",
 };
