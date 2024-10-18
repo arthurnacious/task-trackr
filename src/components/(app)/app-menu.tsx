@@ -98,7 +98,7 @@ const AppMenu: FC<Props> = ({}) => {
       </div>
       <div
         className={cn(
-          "fixed md:static",
+          "fixed md:static z-20",
           !isOpen && "-translate-x-full",
           "md:translate-x-0 w-56 h-screen md:h-full md:flex flex-col justify-between duration-300 bg-inherit px-3 md:pr-8"
         )}
