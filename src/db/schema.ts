@@ -6,8 +6,10 @@ import {
   integer,
   varchar,
   pgEnum,
+  serial,
   index,
 } from "drizzle-orm/pg-core";
+import { v4 as uuidv4 } from "uuid";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -54,11 +56,16 @@ export const verification = pgTable("verification", {
 export const tenant = pgTable(
   "tenant",
   {
-    id: integer("id").primaryKey(),
+    id: serial("id").notNull().primaryKey(),
     name: varchar("name").notNull(),
     slug: varchar("slug").notNull(),
+    inviteCode: varchar("invite_code")
+      .$defaultFn(() => uuidv4().replace(/-/g, ""))
+      .unique(),
     createdAt: timestamp("createdAt").defaultNow(),
-    updatedAt: timestamp("updatedAt").defaultNow(),
+    updatedAt: timestamp("updatedAt")
+      .defaultNow()
+      .$onUpdate(() => new Date()),
   },
   (tenant) => ({
     slugIndex: index("tenant_slug_index").on(tenant.slug), // Index the slug column
@@ -67,19 +74,21 @@ export const tenant = pgTable(
 
 const roleEnum = pgEnum("varchar", ["ADMIN", "PARTICIPANT"]);
 export const tenantMember = pgTable("tenant_member", {
+  id: serial("id").notNull().primaryKey(),
   userId: text("user_id")
     .notNull()
     .references(() => user.id),
   tenantId: integer("tenant_id")
     .notNull()
-    .references(() => tenant.id), // Foreign key referencing tenant.id
+    .references(() => tenant.id),
   role: roleEnum("role").default("PARTICIPANT").notNull(),
+  createdAt: timestamp("createdAt").defaultNow(),
 });
 
 export const project = pgTable(
   "project",
   {
-    id: integer("id").primaryKey(),
+    id: serial("id").notNull().primaryKey(),
     tenantId: integer("tenant_id")
       .notNull()
       .references(() => tenant.id),
@@ -87,7 +96,9 @@ export const project = pgTable(
     slug: varchar("slug").notNull(),
     expiresAt: timestamp("expiresAt"),
     createdAt: timestamp("createdAt").defaultNow(),
-    updatedAt: timestamp("updatedAt").defaultNow(),
+    updatedAt: timestamp("updatedAt")
+      .defaultNow()
+      .$onUpdate(() => new Date()),
   },
   (tenant) => ({
     slugIndex: index("project_slug_index").on(tenant.slug), // Index the slug column
@@ -102,7 +113,7 @@ const taskStatusEnum = pgEnum("varchar", [
   "COMPLETED",
 ]);
 export const task = pgTable("task", {
-  id: integer("id").primaryKey(),
+  id: serial("id").notNull().primaryKey(),
   projectId: integer("project_id")
     .notNull()
     .references(() => project.id),
@@ -112,5 +123,7 @@ export const task = pgTable("task", {
   description: text("description"),
   dueDate: timestamp("due_date"),
   createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
+  updatedAt: timestamp("updatedAt")
+    .defaultNow()
+    .$onUpdate(() => new Date()),
 });

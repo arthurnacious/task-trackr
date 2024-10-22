@@ -16,7 +16,6 @@ import { Input } from "@/components/ui/input";
 import PageContainer from "@/components/(auth)/page-container";
 import Link from "next/link";
 import SocialSignIn from "@/components/(auth)/social-sign-in";
-import { signUp } from "@/server/auth";
 
 const formSchema = z.object({
   name: z.string().min(6, {
@@ -46,7 +45,8 @@ const SignUp = () => {
     name,
   }: z.infer<typeof formSchema>) {
     console.log("trying to login");
-    await signUp(email, password, name);
+    // await signUp(email, password, name);
+    console.log(email, password, name);
   }
 
   return (

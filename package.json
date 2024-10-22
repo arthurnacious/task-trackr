@@ -17,6 +17,8 @@
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.1",
+    "@tanstack/react-query": "^5.59.15",
+    "@tanstack/react-query-devtools": "^5.59.15",
     "@types/bcryptjs": "^2.4.6",
     "@xata.io/client": "^0.0.0-next.va121e4207b94bfe0a3c025fc00b247b923880930",
     "bcryptjs": "^2.4.3",
@@ -34,10 +36,13 @@
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
     "recharts": "^2.13.0",
+    "slugify": "^1.6.6",
+    "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^10.0.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -1,4 +1,4 @@
-import TableView from "@/components/(app)/features/tasks/table-view";
+import TableView from "@/features/tasks/table-view";
 import PageContainer from "@/components/(app)/page-container";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";

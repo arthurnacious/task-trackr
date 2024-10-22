@@ -18,7 +18,7 @@ import {
 import { MoreHorizontal } from "lucide-react";
 
 // Function to generate random date within a range
-const randomDate = (start, end) => {
+const randomDate = (start: Date, end: Date) => {
   return new Date(
     start.getTime() + Math.random() * (end.getTime() - start.getTime())
   )

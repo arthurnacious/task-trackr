@@ -10,6 +10,11 @@ import { useSession } from "@/lib/auth-client";
 import { Skeleton } from "@/components/ui/skeleton";
 import TenantSelect from "@/components/(app)/tenant-select";
 import { getInitials } from "@/lib/helpers/string";
+import { usePathname } from "next/navigation";
+import { useTenantStore } from "@/store/tenant";
+import { useRouter } from "next/navigation";
+import { fetchUsersTenants } from "@/features/store/server/get-users-tenats";
+import { useQuery } from "@tanstack/react-query";
 
 interface Props {}
 
@@ -36,10 +41,41 @@ const navItems = [
 const AppMenu: FC<Props> = ({}) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const { data: session, isPending } = useSession();
+  const { tenant, loadFirstTenant } = useTenantStore();
+  const pathname = usePathname();
+  const router = useRouter();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const appMenuRef = useRef<HTMLDivElement>(null);
+
+  const getTenants = async (userId?: string) => {
+    if (!userId) return [];
+    return await fetchUsersTenants(userId);
+  };
+
+  const { data: tenants, isLoading } = useQuery({
+    queryKey: ["user-tenants", session?.user.id],
+    queryFn: () => getTenants(session?.user.id),
+    enabled: !isPending,
+  });
+
+  useEffect(() => {
+    if (!isPending && session?.user.id) {
+      loadFirstTenant(session.user.id);
+      console.log(tenant);
+    }
+
+    if (
+      !isPending &&
+      !isLoading &&
+      session?.user.id &&
+      tenants &&
+      tenants.length === 0
+    ) {
+      router.replace("/onboarding");
+    }
+  }, [isPending, isLoading, tenants, session, tenant, loadFirstTenant, router]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -100,12 +136,12 @@ const AppMenu: FC<Props> = ({}) => {
         className={cn(
           "fixed md:static z-20",
           !isOpen && "-translate-x-full",
-          "md:translate-x-0 w-56 h-screen md:h-full md:flex flex-col justify-between duration-300 bg-inherit px-3 md:pr-8"
+          "md:translate-x-0 w-56 h-screen md:h-[calc(100dvh-1.2rem)] md:flex flex-col justify-between duration-300 bg-inherit px-3 md:pr-8"
         )}
       >
         <div className="h-full flex flex-col justify-between">
           <div className="">
-            <TenantSelect />
+            <TenantSelect isPending={isPending} userId={session?.user.id} />
             <nav>
               <div className="mt-8 gap-4 flex-col flex">
                 {navItems.map((item, index) => (
@@ -117,7 +153,11 @@ const AppMenu: FC<Props> = ({}) => {
                           <li key={item.name}>
                             <Link
                               href={item.href}
-                              className="flex items-center px-4 py-2 mr-2 text-neutral-500 dark:text-gray-100 dark:hover:bg-neutral-800 hover:bg-gray-500 hover:text-gray-100 dark:hover:text-white rounded duration-300"
+                              className={cn(
+                                "flex items-center px-4 py-2 mr-2 text-neutral-500 dark:text-gray-100 dark:hover:bg-neutral-800 hover:bg-gray-500 hover:text-gray-100 dark:hover:text-white rounded duration-300",
+                                pathname === item.href &&
+                                  "bg-gray-500 text-gray-100"
+                              )}
                             >
                               <Icon
                                 iconName={item.icon}
